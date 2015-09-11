@@ -1,17 +1,15 @@
 """
 Module to get pincode data from 
 """
-import urllib2
 import json
 import time
 import threading
+import urllib2
 
+from config import (DATA_GOV_URL as URL,
+                    KEY)
 from Queue import Queue, Empty
 
-KEY = "YOURKEY"
-
-URL = "https://data.gov.in/api/datastore/resource.json&fields=pincode"
-URL += "&resource_id=0a076478-3fd3-4e2c-b2d2-581876f56d77"
 
 
 def get_url(URL, key, offset, state, limit=100):
@@ -24,7 +22,7 @@ def get_url(URL, key, offset, state, limit=100):
         print URL + uri
     return URL + uri
 
-# A thread that pings ip.
+
 class PincodeCrawler(threading.Thread):
 
     def __init__(self, kwargs=None):

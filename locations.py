@@ -6,15 +6,12 @@ import json
 import time
 import threading
 
+from config import (GOOGLE_GEOCODE_URL as URL,
+                    KEY)
 from Queue import Queue, Empty
 from pincodes import PincodeData
 
-KEY = "YOURKEY"
 
-URL = "https://maps.googleapis.com/maps/api/geocode/json?address="
-
-
-# A thread that pings ip.
 class LocationCrawler(threading.Thread):
 
     def __init__(self, kwargs=None):
@@ -22,6 +19,7 @@ class LocationCrawler(threading.Thread):
         threading.Thread.__init__(self)
         self.kwargs = kwargs
         self.stop_fetch = False
+        self.err_count = 0
 
     def run(self):
 
@@ -33,11 +31,8 @@ class LocationCrawler(threading.Thread):
         while True:
             try:
                 data = in_queue.get(timeout=5)
-                #print data
                 for loc in data:
                     location_data = json.load(urllib2.urlopen(URL + loc['pincode']))
-                    #print location_data
-                    #break
                     location_data['results'][0]['geometry']['location']['pincode'] = loc['pincode']
                     out_queue.put(location_data['results'][0]['geometry']['location'])
                     time.sleep(0.7)
@@ -45,9 +40,9 @@ class LocationCrawler(threading.Thread):
             except Empty, e:
                 break
             except Exception, e:
-                print e, location_data
                 time.sleep(1)
-                pass
+                if self.err_count > 5: break
+                self.err_count += 1
 
     def merge_dicts(pincode, location):
         location['pincode'] = pincode['pincode']
