@@ -1,13 +1,20 @@
 from flask import Flask
+
+from db import db_session
+
+
 app = Flask(__name__)
 
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
-@app.route('/')
-def hello():
+@app.route('/india')
+def IndiaApi():
+    
     return "Hello World!"
 
-
-@app.route('/<name>')
+@app.route('/india/data')
 def hello_name(name):
     return "Hello {}!".format(name)
 
