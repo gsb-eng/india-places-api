@@ -9,7 +9,7 @@ import threading
 from Queue import Queue, Empty
 from get_pincodes import PincodeData
 
-KEY = "44f1506d310af6d67a2659a469c8817c"
+KEY = "YOURKEY"
 
 URL = "https://maps.googleapis.com/maps/api/geocode/json?address="
 
