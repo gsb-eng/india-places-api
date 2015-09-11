@@ -7,7 +7,7 @@ import time
 import threading
 
 from Queue import Queue, Empty
-from get_pincodes import PincodeData
+from pincodes import PincodeData
 
 KEY = "YOURKEY"
 
