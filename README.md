@@ -9,6 +9,7 @@ Next, create the tables by running the below cmman:
 $ python create_tables.py
 ```
 Next update the ```config.py``` witht the KEY for more info check this  [data.gov.in](https://data.gov.in/resources/all-india-pincode-directory-along-contact-details/api).
+
 To run the server in development mode:
 ```
 $ python app.py
