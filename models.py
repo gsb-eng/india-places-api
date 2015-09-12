@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Float
 from db import Base
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Float
+
 
 class States(Base):
 
@@ -7,6 +8,8 @@ class States(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
+
+    # These two flags to identify the latlngs processd or not.
     latlongs = Column(Boolean)
     pincodes = Column(Boolean)
 
